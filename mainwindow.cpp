@@ -28,7 +28,7 @@ void MainWindow::on_LoginButton_clicked()
     params["username"] = ui->teUsername->toPlainText();
     params["password"] = ui->tePassword->toPlainText();
 
-    HttpClient http("http://abc.com");
+    HttpClient http("http://weavebytes.com/development/api.php", this);
     http.SendPostRequest(params);
 
 }

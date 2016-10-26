@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QNetworkReply>
 
 /**
  * @brief The HttpClient class
@@ -13,9 +14,12 @@ class HttpClient: public QObject
 {
     Q_OBJECT
 public:
-    HttpClient(QString url);
+    HttpClient(QString url, QObject *parent=0);
 
     void SendPostRequest(QMap<QString, QString> &params);
+
+public slots:
+    void replyFinished(QNetworkReply *reply);
 
 private:
     QString url;
