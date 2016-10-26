@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp \
         mainwindow.cpp \
         utils.cpp \
-        parser.cpp
+        parser.cpp \
+    httpclient.cpp
 
 HEADERS += \
     utils.h \
-    parser.h
+    parser.h \
+    httpclient.h
 
 
 HEADERS  += mainwindow.h

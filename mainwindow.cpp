@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "httpclient.h"
 #include <QDebug>
 
 
@@ -19,4 +20,15 @@ MainWindow::~MainWindow()
 void MainWindow::on_LoginButton_clicked()
 {
     qDebug() << " Login Pressed...";
+    qDebug() << ui->teUsername->toPlainText();
+    qDebug() << ui->tePassword->toPlainText();
+
+
+    QMap<QString, QString> params;
+    params["username"] = ui->teUsername->toPlainText();
+    params["password"] = ui->tePassword->toPlainText();
+
+    HttpClient http("http://abc.com");
+    http.SendPostRequest(params);
+
 }
