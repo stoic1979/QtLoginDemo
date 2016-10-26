@@ -1,18 +1,27 @@
-QT += core
-QT -= gui
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-10-26T19:43:25
+#
+#-------------------------------------------------
 
-CONFIG += c++11
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QtLoginDemo
-CONFIG += console
-CONFIG -= app_bundle
-
 TEMPLATE = app
 
+
 SOURCES += main.cpp \
-    utils.cpp \
-    parser.cpp
+        mainwindow.cpp \
+        utils.cpp \
+        parser.cpp
 
 HEADERS += \
     utils.h \
     parser.h
+
+
+HEADERS  += mainwindow.h
+
+FORMS    += mainwindow.ui
