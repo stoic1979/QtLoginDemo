@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "httpclient.h"
 #include <QDebug>
 
 
@@ -10,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    http = new HttpClient("http://weavebytes.com/development/api.php", this);
 }
 
 MainWindow::~MainWindow()
@@ -28,7 +29,8 @@ void MainWindow::on_LoginButton_clicked()
     params["username"] = ui->teUsername->toPlainText();
     params["password"] = ui->tePassword->toPlainText();
 
-    HttpClient http("http://weavebytes.com/development/api.php", this);
-    http.SendPostRequest(params);
+
+    //http->TestGetRequest();
+    http->SendPostRequest(params);
 
 }

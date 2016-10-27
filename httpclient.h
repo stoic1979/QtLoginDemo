@@ -16,6 +16,7 @@ class HttpClient: public QObject
 public:
     HttpClient(QString url, QObject *parent=0);
 
+    void TestGetRequest();
     void SendPostRequest(QMap<QString, QString> &params);
 
 public slots:
