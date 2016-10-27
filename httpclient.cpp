@@ -34,11 +34,11 @@ void HttpClient::SendPostRequest(QMap<QString, QString> &params) {
     QMapIterator<QString, QString> itr(params);
 
 
-    QNetworkAccessManager manager(this);
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
     QNetworkRequest request(url);
-
-    //request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
     QUrlQuery postData;
     while (itr.hasNext()) {
@@ -46,14 +46,28 @@ void HttpClient::SendPostRequest(QMap<QString, QString> &params) {
         postData.addQueryItem(itr.key(), itr.value());
     }
 
-    connect(&manager, SIGNAL(finished(QNetworkReply *)),
+    connect(manager, SIGNAL(finished(QNetworkReply *)),
             this, SLOT(replyFinished(QNetworkReply *)));
 
-    manager.post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
+    manager->post(request, postData.toString(QUrl::FullyEncoded).toUtf8());
 
     qDebug() << "[HttpClient] sent post request";
 }
 
 void HttpClient::replyFinished(QNetworkReply *reply) {
     qDebug() << "[HttpClient] got network reply";
+
+    // Getting the http status code
+    int HttpStatusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    qDebug() << "[HttpClient] HttpStatusCode: " << HttpStatusCode;
+
+    if (reply->error() == QNetworkReply::NoError) {
+            qDebug() << "[HttpClient] replyFinished() Success: \n got content:-\n" << reply->readAll();
+            delete reply;
+        }
+        else {
+            qDebug() << "[HttpClient] replyFinished() Failure" << reply->errorString();
+            qDebug() << "[HttpClient] reply content:-\n" << reply->readAll();
+            delete reply;
+        }
 }
