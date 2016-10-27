@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    http = new HttpClient("http://weavebytes.com/development/api.php", this);
+    http = new HttpClient("http://weavebytes.com/development/logindemo/api.php", this);
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +26,7 @@ void MainWindow::on_LoginButton_clicked()
 
 
     QMap<QString, QString> params;
+    params["op"] = QString("login");
     params["username"] = ui->teUsername->toPlainText();
     params["password"] = ui->tePassword->toPlainText();
 
